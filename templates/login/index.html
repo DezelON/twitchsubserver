@@ -1,0 +1,66 @@
+<html>
+	<head><meta charset="utf-8">
+		<title>Strange World</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/static/style.css">
+	</head>
+<body>
+    <p class="top_nav">
+        <a href="https://discordapp.com/invite/RdzDDVW" class="img_nav"><img src="/static/1.png" width="33%" height="6%"></a>
+        <a href="https://vk.com/grandleontv" class="img_nav"><img src="/static/2.png" width="33%" height="6%"></a>
+        <a href="https://www.twitch.tv/grandleon" class="img_nav"><img src="/static/3.png" width="33%" height="6%"></a>
+    </p>
+
+	<div class="fig">
+	    <p><img src="/static/logo.png" width="350" height="350"></p>
+		{% if data.status == "login" %}
+		    <p class="p"><a href="http://dezelon.pythonanywhere.com/auth/login/" class="btn btn-twitch btn-lg"><i class="fa fa-twitch"></i> Login with Twitch</a></p>
+		{% elif data.role == "author" %}
+            <div class="row">
+        		<form class="form form--bg" method="post">{% csrf_token %}
+                    {% for field in data.form %}
+                    <div class="form2">
+                        <table >
+                            <tr>
+                                <td rowspan="3"><img class="imgf" src="{{data.logo}}" width="50" height="50"></td>
+                                <td class="td1">{{data.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class="td2">Автор</td>
+                            </tr>
+                            <tr>
+                                <td class="td3"><a href="http://dezelon.pythonanywhere.com/auth/logout/">Выход</a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!--<selection>-->
+                    <!--    <img src="{{data.logo}}" width="45" height="45">-->
+                    <!--    <div>-->
+                    <!--        {{data.name}}-->
+                    <!--        Автор-->
+                    <!--    </div>-->
+                    <!--</selection>-->
+                    <div class="input-group">
+                        <span class="input-group__label input-group__label--left"><i class="fa fa-user"></i></span>
+                        {{field}}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn--wide">Добавить никнейм</button>
+                </form>
+        	</div>
+		{% elif data.status == 404 %}
+		    <p>Ну ты ето, подписку оформи)</p>
+		{% elif data.status == 200 %}
+		    <p>Приветствую, мой дорогой подписчик :3</p>
+		{% else %}
+            <p>Блэт, это ты где? Шо-то тут какие-то проблемы.. Пиши в поддержку!!</p>
+            <p>Код ошибки: {{data}}</p>
+        {% endif %}
+    </div>
+
+	<p class="bottom_text">Нет ничего постоянного, чем временное</p>
+ </body>
+</html>
+
